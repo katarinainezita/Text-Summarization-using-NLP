@@ -30,24 +30,34 @@ list_of_files = [
     "app.py", # file utama aplikasi 
     "main.py", # entry point proyek
     "Dockerfile", # file docker untuk containerization
-    "requirement.txt", # dependencies proyek
+    "requirements.txt", # dependencies proyek
     "setup.py", # script untuk instalasi proyek sebagai package
     "research/trials.ipynb" # notebook untuk eksplorasi
     
 ]
 
+# iterasi melalui daftar file
 for filepath in list_of_files:
+    
+    # mengambil setiap file dari list_of_files dan mengubahnya menjadi path object 
+    # untuk mempermudah manipulasi path
     filepath = Path(filepath)
+
+    # memisahkan direktori dan nama file
     filedir, filename = os.path.split(filepath)
 
+    # membuat direktori jika belum ada
+    # cek apakah filedirnya tidak kosong, kalau kosong berarti langsung buat filenya di root  
     if filedir != "":
+        # membuat folder filedir jika belum ada
         os.makedirs(filedir, exist_ok=True)
         logging.info(f"Creating directory: {filedir} for the file {filename}")
 
+    # cek apakah file belum ada atau file kosong 
     if (not os.path.exists(filepath)) or (os.path.getsize(filepath) == 0):
         with open(filepath, 'w') as f:
             pass
             logging.info(f"Creating empty file: {filepath}")
-
+    # jika file sudah ada
     else:
         logging.info(f"{filename} is already exists.")
