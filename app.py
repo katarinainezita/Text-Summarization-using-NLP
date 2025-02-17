@@ -5,7 +5,7 @@ import os
 from fastapi.templating import Jinja2Templates
 from starlette.responses import RedirectResponse
 from fastapi.responses import Response
-from textSummarization.pipeline.prediction import PredictionPipelines
+from textSummarization.pipeline.prediction import PredictionPipeline
 
 text:str = "What is Text Summarization?"
 
@@ -27,7 +27,7 @@ async def training():
 @app.post("/predict")
 async def predict_route(text):
     try:
-        obj = PredictionPipelines()
+        obj = PredictionPipeline()
         text = obj.predict(text)
         return text
     
